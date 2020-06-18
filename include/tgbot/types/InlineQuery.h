@@ -1,21 +1,17 @@
-//
-// Created by Andrea Giove on 26/03/16.
-//
-
 #ifndef TGBOT_INLINEQUERY_H
 #define TGBOT_INLINEQUERY_H
 
-#include <memory>
-#include <string>
-
 #include "tgbot/types/User.h"
 #include "tgbot/types/Location.h"
+
+#include <memory>
+#include <string>
 
 namespace TgBot {
 
 /**
  * @brief This object represents an incoming inline query.
- * 
+ *
  * @ingroup types
  */
 class InlineQuery {

@@ -1,13 +1,9 @@
-//
-// Created by Oleg Morozenkov on 25.01.17.
-//
-
 #include "tgbot/types/InputFile.h"
-
-#include <fstream>
-
 #include "tgbot/tools/StringTools.h"
 #include "tgbot/tools/FileTools.h"
+
+#include <memory>
+#include <string>
 
 using namespace std;
 
@@ -21,4 +17,4 @@ InputFile::Ptr InputFile::fromFile(const string& filePath, const string& mimeTyp
     return result;
 }
 
-};
+}

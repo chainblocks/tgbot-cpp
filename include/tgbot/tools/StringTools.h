@@ -1,28 +1,9 @@
-/*
- * Copyright (c) 2015 Oleg Morozenkov
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 #ifndef TGBOT_CPP_STRINGTOOLS_H
 #define TGBOT_CPP_STRINGTOOLS_H
 
+#include "tgbot/export.h"
+
+#include <cstddef>
 #include <vector>
 #include <string>
 #include <sstream>
@@ -37,6 +18,7 @@ namespace StringTools {
  * @param str1 First string
  * @param str2 Second string
  */
+TGBOT_API
 bool startsWith(const std::string& str1, const std::string& str2);
 
 /**
@@ -44,6 +26,7 @@ bool startsWith(const std::string& str1, const std::string& str2);
  * @param str1 First string
  * @param str2 Second string
  */
+TGBOT_API
 bool endsWith(const std::string& str1, const std::string& str2);
 
 /**
@@ -52,13 +35,15 @@ bool endsWith(const std::string& str1, const std::string& str2);
  * @param delimiter Delimiter
  * @param dest Array to which substrings will be saved.
  */
+TGBOT_API
 void split(const std::string& str, char delimiter, std::vector<std::string>& dest);
 
 /**
  * Generates pseudo random string. It's recommended to call srand before this method.
  * @param length Length of resulting string.
  */
-std::string generateRandomString(size_t length);
+TGBOT_API
+std::string generateRandomString(std::size_t length);
 
 /**
  * Performs url encode.
@@ -66,6 +51,7 @@ std::string generateRandomString(size_t length);
  * @param additionalLegitChars Optional. String of chars which will be not encoded in source url string.
  * @return Encoded url string
  */
+TGBOT_API
 std::string urlEncode(const std::string& value, const std::string& additionalLegitChars = "");
 
 /**
@@ -73,6 +59,7 @@ std::string urlEncode(const std::string& value, const std::string& additionalLeg
  * @param value Encoded url string
  * @return Decoded url string
  */
+TGBOT_API
 std::string urlDecode(const std::string& value);
 
 /**

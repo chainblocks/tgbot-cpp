@@ -1,10 +1,7 @@
-//
-// Created by Andrea Giove on 17/04/16.
-//
-
 #ifndef TGBOT_VOICE_H
 #define TGBOT_VOICE_H
 
+#include <cstdint>
 #include <memory>
 #include <string>
 
@@ -12,7 +9,7 @@ namespace TgBot {
 
 /**
  * @brief This object represents a voice note.
- * 
+ *
  * @ingroup types
  */
 class Voice {
@@ -27,7 +24,7 @@ public:
     /**
      * @brief Duration of the audio in seconds as defined by sender.
      */
-    int32_t duration;
+    std::int32_t duration;
 
     /**
      * @brief Optional. MIME type of the file as defined by sender;
@@ -37,7 +34,7 @@ public:
     /**
      * @brief Optional. File size.
      */
-    int32_t fileSize;
+    std::int32_t fileSize;
 };
 }
 

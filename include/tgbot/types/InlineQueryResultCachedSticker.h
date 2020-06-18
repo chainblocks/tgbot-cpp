@@ -1,14 +1,10 @@
-//
-// Created by Konstantin Kukin on 27/12/16.
-//
-
 #ifndef TGBOT_INLINEQUERYRESULTCACHEDSTICKER_H
 #define TGBOT_INLINEQUERYRESULTCACHEDSTICKER_H
 
+#include "tgbot/types/InlineQueryResult.h"
+
 #include <string>
 #include <memory>
-
-#include "tgbot/types/InlineQueryResult.h"
 
 namespace TgBot {
 

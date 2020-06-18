@@ -1,20 +1,17 @@
-//
-// Created by Konstantin Kukin on 27/12/16
-//
-
 #ifndef TGBOT_INLINEQUERYRESULTAUDIO_H
 #define TGBOT_INLINEQUERYRESULTAUDIO_H
 
+#include "tgbot/types/InlineQueryResult.h"
+
+#include <cstdint>
 #include <string>
 #include <memory>
-
-#include "tgbot/types/InlineQueryResult.h"
 
 namespace TgBot {
 
 /**
  * @brief Represents a link to an mp3 audio file.
- * 
+ *
  * @ingroup types
  */
 class InlineQueryResultAudio : public InlineQueryResult {
@@ -41,7 +38,7 @@ public:
     /**
     * @brief Optional. Audio duration in seconds
     */
-    int32_t audioDuration;
+    std::int32_t audioDuration;
 };
 }
 

@@ -1,30 +1,9 @@
-/*
- * Copyright (c) 2015 Oleg Morozenkov
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 #include "tgbot/tools/StringTools.h"
 
-#include <cstdlib>
 #include <iomanip>
 #include <cstdio>
+#include <random>
+#include <string>
 
 using namespace std;
 
@@ -76,12 +55,17 @@ void split(const string& str, char delimiter, vector<string>& dest) {
     }
 }
 
-string generateRandomString(size_t length) {
+string generateRandomString(std::size_t length) {
     static const string chars("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890-=[]\\;',./!@#$%^&*()_+{}|:\"<>?`~");
-    static const size_t charsLen = chars.length();
+    static const std::size_t charsLen = chars.length();
     string result;
-    for (size_t i = 0; i < length; ++i) {
-        result += chars[rand() % charsLen];
+
+    random_device randomDevice;
+    mt19937 randomSeed(randomDevice());
+    uniform_int_distribution<int> generator(0, charsLen - 1);
+
+    for (std::size_t i = 0; i < length; ++i) {
+        result += chars[generator(randomSeed)];
     }
     return result;
 }
@@ -103,11 +87,10 @@ string urlEncode(const string& value, const std::string& additionalLegitChars) {
 
 string urlDecode(const string& value) {
     string result;
-    for (size_t i = 0, count = value.length(); i < count; ++i) {
+    for (std::size_t i = 0, count = value.length(); i < count; ++i) {
         const char c = value[i];
         if (c == '%') {
-            int t = 0;
-            sscanf(value.substr(i + 1, 2).c_str(), "%x", &t);
+            int t = stoi(value.substr(i + 1, 2), nullptr, 16);
             result += (char) t;
             i += 2;
         } else {

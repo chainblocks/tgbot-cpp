@@ -1,31 +1,5 @@
-/*
- * Copyright (c) 2015 Oleg Morozenkov
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 #ifndef TGBOT_CPP_MESSAGE_H
 #define TGBOT_CPP_MESSAGE_H
-
-#include <string>
-#include <vector>
-#include <memory>
 
 #include "tgbot/types/Chat.h"
 #include "tgbot/types/User.h"
@@ -34,6 +8,7 @@
 #include "tgbot/types/Document.h"
 #include "tgbot/types/Animation.h"
 #include "tgbot/types/Sticker.h"
+#include "tgbot/types/Poll.h"
 #include "tgbot/types/Video.h"
 #include "tgbot/types/Contact.h"
 #include "tgbot/types/Location.h"
@@ -44,12 +19,18 @@
 #include "tgbot/types/Voice.h"
 #include "tgbot/types/Invoice.h"
 #include "tgbot/types/SuccessfulPayment.h"
+#include "tgbot/types/InlineKeyboardMarkup.h"
+
+#include <cstdint>
+#include <string>
+#include <vector>
+#include <memory>
 
 namespace TgBot {
 
 /**
  * @brief This object represents a message.
- * 
+ *
  * @ingroup types
  */
 class Message {
@@ -59,7 +40,7 @@ public:
     /**
      * @brief Unique message identifier.
      */
-    int32_t messageId;
+    std::int32_t messageId;
 
     /**
      * @brief Optional. Sender, can be empty for messages sent to channels.
@@ -69,7 +50,7 @@ public:
     /**
      * @brief Date the message was sent in Unix time.
      */
-    int32_t date;
+    std::int32_t date;
 
     /**
      * @brief Conversation the message belongs to.
@@ -89,7 +70,7 @@ public:
     /**
      * @brief Optional. For forwarded channel posts, identifier of the original message in the channel
      */
-    int32_t forwardFromMessageId;
+    std::int32_t forwardFromMessageId;
 
     /**
      * @brief Optional. For messages forwarded from channels, signature of the post author if present.
@@ -97,9 +78,14 @@ public:
     std::string forwardSignature;
 
     /**
+     * @brief Optional. Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages.
+     */
+    std::string forwardSenderName;
+
+    /**
      * @brief Optional. For forwarded messages, date the original message was sent in Unix time.
      */
-    int32_t forwardDate;
+    std::int32_t forwardDate;
 
     /**
      * @brief Optional. For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -109,7 +95,7 @@ public:
     /**
      * @brief Optional. Date the message was last edited in Unix time.
      */
-    int32_t editDate;
+    std::int32_t editDate;
 
     /**
      * @brief Optional. Signature of the post author for messages in channels.
@@ -143,7 +129,7 @@ public:
 
     /**
      * @brief Optional. Message is an animation, information about the animation.
-     * 
+     *
      * For backward compatibility, when this field is set, the document field will also be set.
      */
     Animation::Ptr animation;
@@ -194,6 +180,11 @@ public:
     Venue::Ptr venue;
 
     /**
+     * @brief Optional. Message is a poll, information about the poll.
+     */
+    Poll::Ptr poll;
+
+    /**
      * @brief Optional. A new member was added to the group, information about them (this member may be bot itself).
      */
     User::Ptr newChatMember;
@@ -241,12 +232,12 @@ public:
     /**
      * @brief Optional. The group has been migrated to a supergroup with the specified identifier, not exceeding 1e13 by absolute value.
      */
-    int64_t migrateToChatId = 0;
+    std::int64_t migrateToChatId = 0;
 
     /**
      * @brief Optional. The supergroup has been migrated from a group with the specified identifier, not exceeding 1e13 by absolute value
      */
-    int64_t migrateFromChatId = 0;
+    std::int64_t migrateFromChatId = 0;
 
     /**
      * @brief Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply.
@@ -267,6 +258,11 @@ public:
      * @brief Optional. The domain name of the website on which the user has logged in.
      */
     std::string connectedWebsite;
+
+    /**
+     * @brief Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
+     */
+    InlineKeyboardMarkup::Ptr replyMarkup;
 };
 
 }

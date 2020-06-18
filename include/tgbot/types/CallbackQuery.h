@@ -1,15 +1,11 @@
-//
-// Created by Andrea Giove on 17/04/16.
-//
-
 #ifndef TGBOT_CALLBACKQUERY_H
 #define TGBOT_CALLBACKQUERY_H
 
-#include <memory>
-#include <string>
-
 #include "tgbot/types/User.h"
 #include "tgbot/types/Message.h"
+
+#include <memory>
+#include <string>
 
 namespace TgBot {
 

@@ -1,49 +1,27 @@
-/*
- * Copyright (c) 2015 Oleg Morozenkov
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 #ifndef TGBOT_CPP_BOT_H
 #define TGBOT_CPP_BOT_H
 
+#include "tgbot/Api.h"
+#include "tgbot/EventHandler.h"
+
+#include <memory>
 #include <string>
 #include <utility>
-#include "tgbot/Api.h"
-#include "tgbot/EventBroadcaster.h"
-#include "tgbot/EventHandler.h"
-#include "tgbot/net/HttpClient.h"
-#include "tgbot/net/BoostHttpOnlySslClient.h"
 
 namespace TgBot {
+
+class EventBroadcaster;
+class HttpClient;
 
 /**
  * @brief This object holds other objects specific for this bot instance.
  *
  * @ingroup general
  */
-class Bot {
+class TGBOT_API Bot {
 
 public:
-    explicit Bot(std::string token, const HttpClient& httpClient = _getDefaultHttpClient())
-        : _token(std::move(token)), _api(_token, httpClient), _eventHandler(_eventBroadcaster) {
-    }
+    explicit Bot(std::string token, const HttpClient &httpClient = _getDefaultHttpClient());
 
     /**
      * @return Token for accessing api.
@@ -63,7 +41,7 @@ public:
      * @return Object which holds all event listeners.
      */
     inline EventBroadcaster& getEvents() {
-        return _eventBroadcaster;
+        return *_eventBroadcaster;
     }
 
     /**
@@ -74,14 +52,11 @@ public:
     }
 
 private:
-    static HttpClient& _getDefaultHttpClient() {
-        static BoostHttpOnlySslClient instance;
-        return instance;
-    }
+    static HttpClient &_getDefaultHttpClient();
 
     const std::string _token;
     const Api _api;
-    EventBroadcaster _eventBroadcaster;
+    std::unique_ptr<EventBroadcaster> _eventBroadcaster;
     const EventHandler _eventHandler;
 };
 

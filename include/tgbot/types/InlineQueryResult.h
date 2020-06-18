@@ -1,21 +1,17 @@
-//
-// Created by Andrea Giove on 26/03/16.
-//
-
 #ifndef TGBOT_INLINEQUERYRESULT_H
 #define TGBOT_INLINEQUERYRESULT_H
 
-#include <memory>
-#include <string>
-
 #include "tgbot/types/InlineKeyboardMarkup.h"
 #include "tgbot/types/InputMessageContent.h"
+
+#include <memory>
+#include <string>
 
 namespace TgBot {
 
 /**
  * @brief This abstract class is base of all inline query results.
- * 
+ *
  * @ingroup types
  */
 class InlineQueryResult {

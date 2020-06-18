@@ -1,32 +1,12 @@
-/*
- * Copyright (c) 2015 Oleg Morozenkov
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 #ifndef TGBOT_CPP_CHAT_H
 #define TGBOT_CPP_CHAT_H
 
+#include "tgbot/types/ChatPhoto.h"
+#include "tgbot/types/ChatPermissions.h"
+
+#include <cstdint>
 #include <string>
 #include <memory>
-
-#include "tgbot/types/ChatPhoto.h"
 
 namespace TgBot {
 
@@ -50,7 +30,7 @@ public:
     /**
      * @brief Unique identifier for this chat, not exceeding 1e13 by absolute value
      */
-    int64_t id;
+    std::int64_t id;
 
     /**
      * @brief Type of chat: can be either "private", "group", "supergroup, or "channel".
@@ -109,6 +89,12 @@ public:
      * Returned only in getChat.
      */
     std::shared_ptr<Message> pinnedMessage;
+
+    /**
+     * @brief Optional. Default chat member permissions, for groups and supergroups.
+     * Returned only in getChat.
+     */
+    ChatPermissions::Ptr permissions;
 
     /**
      * @brief Optional. For supergroups, name of group sticker set.

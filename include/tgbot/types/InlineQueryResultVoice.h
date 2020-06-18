@@ -1,15 +1,15 @@
-//
-// Created by Konstantin Kukin on 27/12/16
-//
-
 #ifndef TGBOT_INLINEQUERYRESULTVOICE_H
 #define TGBOT_INLINEQUERYRESULTVOICE_H
+
+#include <cstdint>
+#include <memory>
+#include <string>
 
 namespace TgBot {
 
 /**
  * @brief Represents link to a page containing an embedded video player or a video file.
- * 
+ *
  * @ingroup types
  */
 class InlineQueryResultVoice : public InlineQueryResult {
@@ -31,7 +31,7 @@ public:
     /**
      * @brief Optional. Recording duration in seconds
      */
-    int32_t voiceDuration;
+    std::int32_t voiceDuration;
 };
 }
 

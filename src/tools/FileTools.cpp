@@ -1,11 +1,8 @@
-//
-// Created by Oleg Morozenkov on 25.01.17.
-//
-
 #include "tgbot/tools/FileTools.h"
 
 #include <fstream>
 #include <sstream>
+#include <string>
 
 using namespace std;
 
@@ -27,4 +24,4 @@ void write(const string& content, const string& filePath) {
     out.close();
 }
 
-};
+}

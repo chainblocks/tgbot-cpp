@@ -1,22 +1,18 @@
-//
-// Created by Konstantin Kukin on 26/12/16.
-//
-
 #ifndef TGBOT_CPP_REPLYKEYBOARDREMOVE_H
 #define TGBOT_CPP_REPLYKEYBOARDREMOVE_H
 
-#include <memory>
-
 #include "tgbot/types/GenericReply.h"
+
+#include <memory>
 
 namespace TgBot {
 
 /**
  * @brief Upon receiving a message with this object, Telegram clients will remove the current custom keyboard and display the default letter-keyboard.
- * 
+ *
  * By default, custom keyboards are displayed until a new keyboard is sent by a bot. An exception is made for one-time keyboards that are hidden
  * immediately after the user presses a button (see ReplyKeyboardMarkup).
- * 
+ *
  * @ingroup types
  */
 class ReplyKeyboardRemove : public GenericReply {

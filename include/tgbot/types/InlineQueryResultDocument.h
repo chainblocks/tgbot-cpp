@@ -1,20 +1,17 @@
-//
-// Created by Konstantin Kukin on 27/12/16
-//
-
 #ifndef TGBOT_INLINEQUERYRESULTDOCUMENT_H
 #define TGBOT_INLINEQUERYRESULTDOCUMENT_H
 
+#include "tgbot/types/InlineQueryResult.h"
+
+#include <cstdint>
 #include <string>
 #include <memory>
-
-#include "tgbot/types/InlineQueryResult.h"
 
 namespace TgBot {
 
 /**
  * @brief Represents a link to a file.
- * 
+ *
  * @ingroup types
  */
 class InlineQueryResultDocument : public InlineQueryResult {
@@ -52,12 +49,12 @@ public:
     /**
     * @brief Optional. Thumbnail width.
     */
-    int32_t thumbWidth;
+    std::int32_t thumbWidth;
 
     /**
     * @brief Optinal. Thumbnail height
     */
-    int32_t thumbHeight;
+    std::int32_t thumbHeight;
 };
 }
 

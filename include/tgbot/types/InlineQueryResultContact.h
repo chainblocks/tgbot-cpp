@@ -1,20 +1,17 @@
-//
-// Created by Konstantin Kukin on 27/12/16
-//
-
 #ifndef TGBOT_INLINEQUERYRESULTCONTACT_H
 #define TGBOT_INLINEQUERYRESULTCONTACT_H
 
+#include "tgbot/types/InlineQueryResult.h"
+
+#include <cstdint>
 #include <string>
 #include <memory>
-
-#include "tgbot/types/InlineQueryResult.h"
 
 namespace TgBot {
 
 /**
  * @brief Represents a contact with a phone number
- * 
+ *
  * @ingroup types
  */
 class InlineQueryResultContact : public InlineQueryResult {
@@ -57,12 +54,12 @@ public:
     /**
     * @brief Optional. Thumbnail width.
     */
-    int32_t thumbWidth;
+    std::int32_t thumbWidth;
 
     /**
     * @brief Optinal. Thumbnail height
     */
-    int32_t thumbHeight;
+    std::int32_t thumbHeight;
 };
 }
 

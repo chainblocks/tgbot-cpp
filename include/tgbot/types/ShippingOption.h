@@ -1,22 +1,19 @@
-//
-// Created by Maks Mazurov (fox.cpp) on 21.05.17.
-//
-
 #ifndef TGBOT_SHIPPINGOPTION_H
 #define TGBOT_SHIPPINGOPTION_H
+
+#include "tgbot/types/LabeledPrice.h"
 
 #include <string>
 #include <memory>
 #include <vector>
-#include "tgbot/types/LabeledPrice.h"
 
 namespace TgBot {
 
 /**
  * @brief This object represents one shipping option.
  *
- * https://core.telegram.org/bots/api#shippingoption 
- * 
+ * https://core.telegram.org/bots/api#shippingoption
+ *
  * @ingroup types
  */
 class ShippingOption {

@@ -1,33 +1,7 @@
-/*
- * Copyright (c) 2015 Oleg Morozenkov
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 #ifndef TGBOT_CPP_TGTYPEPARSER_H
 #define TGBOT_CPP_TGTYPEPARSER_H
 
-#include <string>
-
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/json_parser.hpp>
-
+#include "tgbot/export.h"
 #include "tgbot/types/User.h"
 #include "tgbot/types/Chat.h"
 #include "tgbot/types/Message.h"
@@ -36,6 +10,9 @@
 #include "tgbot/types/Document.h"
 #include "tgbot/types/Sticker.h"
 #include "tgbot/types/StickerSet.h"
+#include "tgbot/types/Poll.h"
+#include "tgbot/types/PollOption.h"
+#include "tgbot/types/ChatPermissions.h"
 #include "tgbot/types/MaskPosition.h"
 #include "tgbot/types/Video.h"
 #include "tgbot/types/Voice.h"
@@ -104,9 +81,18 @@
 #include "tgbot/types/InputMediaDocument.h"
 #include "tgbot/types/InputMediaAnimation.h"
 
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+
+#include <memory>
+#include <sstream>
+#include <string>
+#include <vector>
+#include <utility>
+
 namespace TgBot {
 
-class TgTypeParser {
+class TGBOT_API TgTypeParser {
 
 public:
     template<typename T>
@@ -144,6 +130,15 @@ public:
 
     MaskPosition::Ptr parseJsonAndGetMaskPosition(const boost::property_tree::ptree& data) const;
     std::string parseMaskPosition(const MaskPosition::Ptr& object) const;
+
+    Poll::Ptr parseJsonAndGetPoll(const boost::property_tree::ptree& data) const;
+    std::string parsePoll(const Poll::Ptr& object) const;
+
+    PollOption::Ptr parseJsonAndGetPollOption(const boost::property_tree::ptree& data) const;
+    std::string parsePollOption(const PollOption::Ptr& object) const;
+
+    ChatPermissions::Ptr parseJsonAndGetChatPermissions(const boost::property_tree::ptree& data) const;
+    std::string parseChatPermissions(const ChatPermissions::Ptr& object) const;
 
     Video::Ptr parseJsonAndGetVideo(const boost::property_tree::ptree& data) const;
     std::string parseVideo(const Video::Ptr& object) const;
@@ -467,6 +462,25 @@ private:
         json += value;
         json += ',';
     }
+
+    template<typename T>
+    inline void appendToJsonNumber(std::string& json, const std::string& varName, const T& value) const {
+        json += '"';
+        json += varName;
+        json += R"(":)";
+        json += std::to_string(value);
+        json += ',';
+    }
+
+    inline void appendToJson(std::string &json, const std::string &varName, const int &value) const { appendToJsonNumber(json, varName, value); }
+    inline void appendToJson(std::string &json, const std::string &varName, const long &value) const { appendToJsonNumber(json, varName, value); }
+    inline void appendToJson(std::string &json, const std::string &varName, const long long &value) const { appendToJsonNumber(json, varName, value); }
+    inline void appendToJson(std::string &json, const std::string &varName, const unsigned &value) const { appendToJsonNumber(json, varName, value); }
+    inline void appendToJson(std::string &json, const std::string &varName, const unsigned long &value) const { appendToJsonNumber(json, varName, value); }
+    inline void appendToJson(std::string &json, const std::string &varName, const unsigned long long &value) const { appendToJsonNumber(json, varName, value); }
+    inline void appendToJson(std::string &json, const std::string &varName, const float &value) const { appendToJsonNumber(json, varName, value); }
+    inline void appendToJson(std::string &json, const std::string &varName, const double &value) const { appendToJsonNumber(json, varName, value); }
+    inline void appendToJson(std::string &json, const std::string &varName, const long double &value) const { appendToJsonNumber(json, varName, value); }
 
     inline void appendToJson(std::string& json, const std::string& varName, const bool& value) const {
         json += '"';

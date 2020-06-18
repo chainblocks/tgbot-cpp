@@ -1,20 +1,16 @@
-//
-// Created by Konstantin Kukin on 27/12/16.
-//
-
 #ifndef TGBOT_INLINEQUERYRESULTCACHEDPHOTO_H
 #define TGBOT_INLINEQUERYRESULTCACHEDPHOTO_H
 
+#include "tgbot/types/InlineQueryResult.h"
+
 #include <string>
 #include <memory>
-
-#include "tgbot/types/InlineQueryResult.h"
 
 namespace TgBot {
 
 /**
  * @brief Represents a link to a photo stored on the Telegram servers.
- * 
+ *
  * @ingroup types
  */
 class InlineQueryResultCachedPhoto : public InlineQueryResult {

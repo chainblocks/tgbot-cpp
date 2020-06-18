@@ -1,37 +1,17 @@
-/*
- * Copyright (c) 2015 Oleg Morozenkov
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 #ifndef TGBOT_EVENTBROADCASTER_H
 #define TGBOT_EVENTBROADCASTER_H
 
-#include <string>
-#include <functional>
-#include <vector>
-#include <unordered_map>
-
+#include "tgbot/export.h"
 #include "tgbot/types/Message.h"
 #include "tgbot/types/InlineQuery.h"
 #include "tgbot/types/ChosenInlineResult.h"
 #include "tgbot/types/CallbackQuery.h"
+
+#include <initializer_list>
+#include <string>
+#include <functional>
+#include <vector>
+#include <unordered_map>
 
 namespace TgBot {
 
@@ -39,10 +19,10 @@ class EventHandler;
 
 /**
  * @brief This class holds all event listeners.
- * 
+ *
  * @ingroup general
  */
-class EventBroadcaster {
+class TGBOT_API EventBroadcaster {
 
 friend EventHandler;
 
@@ -128,12 +108,12 @@ private:
         }
     }
 
-    inline void broadcastAnyMessage(const Message::Ptr message) const {
+    inline void broadcastAnyMessage(const Message::Ptr& message) const {
         broadcast<MessageListener, Message::Ptr>(_onAnyMessageListeners, message);
     }
 
-    inline bool broadcastCommand(const std::string command, const Message::Ptr message) const {
-        std::unordered_map<std::string, MessageListener>::const_iterator iter = _onCommandListeners.find(command);
+    inline bool broadcastCommand(const std::string& command, const Message::Ptr& message) const {
+        auto iter = _onCommandListeners.find(command);
         if (iter == _onCommandListeners.end()) {
             return false;
         }
@@ -141,23 +121,23 @@ private:
         return true;
     }
 
-    inline void broadcastUnknownCommand(const Message::Ptr message) const {
+    inline void broadcastUnknownCommand(const Message::Ptr& message) const {
         broadcast<MessageListener, Message::Ptr>(_onUnknownCommandListeners, message);
     }
 
-    inline void broadcastNonCommandMessage(const Message::Ptr message) const {
+    inline void broadcastNonCommandMessage(const Message::Ptr& message) const {
         broadcast<MessageListener, Message::Ptr>(_onNonCommandMessageListeners, message);
     }
 
-    inline void broadcastInlineQuery(const InlineQuery::Ptr query) const {
+    inline void broadcastInlineQuery(const InlineQuery::Ptr& query) const {
         broadcast<InlineQueryListener, InlineQuery::Ptr>(_onInlineQueryListeners, query);
     }
 
-    inline void broadcastChosenInlineResult(const ChosenInlineResult::Ptr result) const {
+    inline void broadcastChosenInlineResult(const ChosenInlineResult::Ptr& result) const {
         broadcast<ChosenInlineResultListener, ChosenInlineResult::Ptr>(_onChosenInlineResultListeners, result);
     }
 
-    inline void broadcastCallbackQuery(const CallbackQuery::Ptr result) const {
+    inline void broadcastCallbackQuery(const CallbackQuery::Ptr& result) const {
         broadcast<CallbackQueryListener, CallbackQuery::Ptr>(_onCallbackQueryListeners, result);
     }
 

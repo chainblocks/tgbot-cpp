@@ -1,20 +1,17 @@
-//
-// Created by Andrea Giove on 17/04/16.
-//
-
 #ifndef TGBOT_INLINEKEYBOARDBUTTON_H
 #define TGBOT_INLINEKEYBOARDBUTTON_H
 
+#include "tgbot/types/CallbackGame.h"
+#include "tgbot/types/LoginUrl.h"
+
 #include <string>
 #include <memory>
-
-#include "tgbot/types/CallbackGame.h"
 
 namespace TgBot {
 
 /**
  * @brief This object represents one button of an inline keyboard. You must use exactly one of the optional fields.
- * 
+ *
  * @ingroup types
  */
 class InlineKeyboardButton {
@@ -30,6 +27,11 @@ public:
      * @brief Optional. HTTP url to be opened when button is pressed.
      */
     std::string url;
+
+    /**
+     * @brief Optional. An HTTP URL used to automatically authorize the user.
+     */
+    LoginUrl::Ptr loginUrl;
 
     /**
      * @brief Optional. Data to be sent in a callback query to the bot when button is pressed.
